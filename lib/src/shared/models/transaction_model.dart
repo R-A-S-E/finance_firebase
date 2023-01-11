@@ -4,12 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class TransactionModel {
+  String? id;
   String text;
   double value;
   bool isEntry;
   DateTime date;
   String category;
   TransactionModel({
+    this.id,
     required this.text,
     required this.value,
     required this.isEntry,
@@ -55,6 +57,7 @@ class TransactionModel {
       TransactionModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   TransactionModel copyWith({
+    String? id,
     String? text,
     double? value,
     bool? isEntry,
@@ -62,6 +65,7 @@ class TransactionModel {
     String? category,
   }) {
     return TransactionModel(
+      id: id ?? this.id,
       text: text ?? this.text,
       value: value ?? this.value,
       isEntry: isEntry ?? this.isEntry,
@@ -72,6 +76,26 @@ class TransactionModel {
 
   @override
   String toString() {
-    return 'TransactionModel(text: $text, value: $value, isEntry: $isEntry, date: $date, category: $category)';
+    return 'TransactionModel(id: $id, text: $text, value: $value, isEntry: $isEntry, date: $date, category: $category)';
+  }
+
+  @override
+  bool operator ==(covariant TransactionModel other) {
+    if (identical(this, other)) return true;
+
+    return other.text == text &&
+        other.value == value &&
+        other.isEntry == isEntry &&
+        other.date == date &&
+        other.category == category;
+  }
+
+  @override
+  int get hashCode {
+    return text.hashCode ^
+        value.hashCode ^
+        isEntry.hashCode ^
+        date.hashCode ^
+        category.hashCode;
   }
 }

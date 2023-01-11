@@ -21,8 +21,6 @@ abstract class HomeControllerBase with Store {
     listTransaction.addAll(values);
   }
 
-  TransactionModel? transaction;
-
   @action
   void setTransaction({required TransactionModel value}) {
     listTransaction.add(value);

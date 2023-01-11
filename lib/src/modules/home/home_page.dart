@@ -1,4 +1,5 @@
 import 'package:finance_firebase/src/modules/home/controller/home_controller.dart';
+import 'package:finance_firebase/src/modules/transaction/transaction_page.dart';
 import 'package:finance_firebase/src/shared/services/current_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -57,11 +58,21 @@ class _HomePageState extends State<HomePage> {
                         trailing: Text(transaction.category),
                         textColor:
                             transaction.isEntry ? Colors.green : Colors.red,
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TransactionPage(
+                                      transaction: transaction,
+                                    ))),
                       ),
                     )
                     .toList()),
           ));
         }
+      }),
+      floatingActionButton: FloatingActionButton(onPressed: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => TransactionPage()));
       }),
     );
   }

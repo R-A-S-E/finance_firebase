@@ -7,6 +7,14 @@ class HomeRepository {
   Future<List<TransactionModel>> getTransaction() async {
     final snapshot = await firebase.collection('transaction').get();
 
-    return snapshot.docs.map((e) => TransactionModel.fromFirestore(e)).toList();
+    final List<TransactionModel> listTransactions = [];
+
+    for (var doc in snapshot.docs) {
+      TransactionModel item = TransactionModel.fromFirestore(doc);
+      item.id = doc.id;
+      listTransactions.add(item);
+    }
+
+    return listTransactions;
   }
 }
